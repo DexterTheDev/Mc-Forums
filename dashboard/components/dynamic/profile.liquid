@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% render 'partials/header.liquid', client: client, user: user, staff: staff %}
+</head>
+
+<body class="bg-primary-100 font-body">
+    {% render 'partials/navbar.liquid', client: client, user: user, staff: staff %}
+    <div class="md:flex mt-20 mb-10 pt-10 w-8/12 mx-auto items-center">
+        <img src="{{ avatar }}" class="md:mx-0 w-44 rounded-full shadow-md shadow-black-200 mx-auto" />
+        <div>
+            <p class="md:text-left text-white text-5xl font-semibold pl-5 text-center">{{ dbuser.tag }}</p>
+            <p class="md:text-left text-white text-2xl font-semibold pl-5 text-center">{{ dbuser.biography }}</p>
+            {% unless dbuser.id == user.id %} <a href="/profile/{{dbuser.id}}/report"
+                class="md:text-left mt-5 text-blue-200 text-2xl font-semibold pl-5 text-center border-none outline-none duration-300 ease-in-out hover:text-blue-500"><i
+                    class="fa fa-flag"></i>&nbsp;Report
+                User</a>
+            {% endunless %}
+        </div>
+    </div>
+    {% if dbuser.id == user.id %}
+    <div class="lg:block lg:mt-0 border-b border-primary-200 mx-auto md:w-5/12 w-8/12 mt-5"></div>
+    <div class="mx-auto md:w-8/12">
+        <form method="POST">
+            <input name="content"
+                class="rounded-lg mb-7 outline-none border-none shadow-lg w-full mt-7 py-4 px-5 font-semibold text-white bg-primary-200"
+                placeholder="I am a mysterious person." value="{{ dbuser.biography }}">
+            <button
+                class="rounded-lg text-sm justify-end shadow-lg px-6 py-3 bg-primary-200 text-white text-md font-semibold cursor-pointer duration-100 hover:bg-primary-300"
+                type="submit"><i class="fa fa-flag"></i>&nbsp;Modify Bio</button>
+        </form>
+    </div>
+    {% endif %}
+    <div class="lg:block lg:mt-0 border-b border-primary-200 mx-auto md:w-5/12 w-8/12 mt-5"></div>
+    <div class="md:w-8/12 mx-auto mt-10 justify-end">
+        <h1 class="text-white text-3xl"><i class="fa fa-flag"></i>&nbsp;Threads</h1>
+    </div>
+    <div class="flex flex-col md:w-8/12 mx-auto">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8 rounded-lg">
+                <div class="overflow-hidden">
+                    <table class="min-w-full text-center">
+                        <thead class="border-b bg-primary-300">
+                            <tr>
+                                <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                    #
+                                </th>
+                                <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                    Thread Name
+                                </th>
+                            </tr>
+                        </thead class="border-b">
+                        <tbody class="bg-primary-500">
+                            {% for thread in threads %}
+                            <tr onclick="location.href='/thread/{{ thread.id }}'"
+                                class="cursor-pointer  bg-white border-b duration-300 hover:bg-secondary-700">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                                    {{
+                                    thread.index }}</td>
+                                <td class="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap text-left">
+                                    {{ thread.name }}
+                                </td>
+                            </tr class="bg-white border-b">
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="md:w-8/12 mx-auto mt-10 justify-end">
+        <h1 class="text-white text-3xl"><i class="fa fa-tags"></i>&nbsp;Tickets</h1>
+    </div>
+    <div class="flex flex-col md:w-8/12 mx-auto">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8 rounded-lg">
+                <div class="overflow-hidden">
+                    <table class="min-w-full text-center">
+                        <thead class="border-b bg-primary-300">
+                            <tr>
+                                <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                    Ticket name
+                                </th>
+                                <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                    Ticket date
+                                </th>
+                                <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                    Closed
+                                </th>
+                            </tr>
+                        </thead class="border-b">
+                        <tbody class="bg-primary-500">
+                            {% for ticket in tickets %}
+                            <tr onclick="location.href='/ticket/{{ ticket.id }}'"
+                                class="cursor-pointer  bg-white border-b duration-300 hover:bg-secondary-700">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                                    {{ ticket.name }}</td>
+                                <td class="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap text-left">
+                                    {{ ticket.date }}
+                                </td>
+                                <td class="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap text-left">
+                                    {{ ticket.closed | capitalize}}
+                                </td>
+                            </tr class="bg-white border-b">
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <script src="/public/scripts/tailwind.config.js"></script>
+        <script src="/public/scripts/profile/edit.js"></script>
+        <p class="text-white text-base font-semibold text-center p-5">{{ client.config.SiteName}} ©️ 2022 - 2023</p>
+    </footer>
+</body>
+
+</html>

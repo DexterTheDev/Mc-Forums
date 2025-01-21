@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% render 'partials/header.liquid', client: client, user: user, staff: staff %}
+</head>
+
+<body class="bg-primary-100 font-body text-white">
+    {% render 'partials/navbar.liquid', client: client, user: user, staff: staff %}
+    <div class="w-11/12 md:w-8/12 mx-auto mt-24">
+        <p class="text-5xl font-semibold text-center mb-3">{{ ticket.name }}</p>
+        <p class="hidden" id="ticketID">{{ ticket.id }}</p>
+        <div class="lg:block lg:mt-0 border-b border-primary-400 mx-auto md:w-5/12 w-8/12 mt-5 mb-7"></div>
+        <div class="bg-primary-400 rounded-lg shadow-lg w-full py-8 px-6">
+            <div class="md:flex mb-4">
+                <div class="flex justify-start">
+                    <img src="{{ ticket.authorAvatar }}" class="w-9 h-9 rounded-full" alt="Avatar">&nbsp;
+                    <p class="font-semibold text-white text-lg pt-1">{{ ticket.authorTag }}</p>
+                </div>
+                <div class="mt-2 md:mt-0 flex ml-auto">
+                    <p class="bg-primary-300 rounded-lg shadow-sm py-1 px-2 mr-1">{{ ticket.priority | capitalize }}</p>
+                    <p class="bg-primary-300 rounded-lg shadow-sm py-1 px-2 ml-1">{{ ticket.category | capitalize }}
+                        Support</p>
+                </div>
+            </div>
+            <div class="lg:block lg:mt-0 border-b border-primary-600 mx-auto w-full my-7"></div>
+            <div class="mb-4" id="chatbox">
+                {% for reply in ticket.chat %}
+                <div id="{{reply.id}}" class="mb-3">
+                    <div class="flex">
+                        <img src="{{ reply.authorData.avatar }}" class="w-9 h-9 rounded-full" alt="Avatar">&nbsp;
+                        <p class="font-semibold text-white text-lg pt-1">{{ reply.authorData.tag }}<b
+                                class="text-sm font-medium text-gray-200 pl-2">{{reply.plainDate}}</b></p>
+                    </div>
+                    <p class="font-medium text-white text-base md:pl-10 pt-1"><i
+                            class="fa fa-arrow-right"></i>&nbsp;&nbsp;{{ reply.content }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% if ticket.closed %}
+            <p class="text-white font-semibold text-xl">Ticket closed for further replies...</p>
+            {% else %}
+            <input class="rounded-lg bg-primary-200 px-4 py-2 outline-none w-full mb-4" id="content"
+                placeholder="Hello!" />
+            <a onclick="reply('{{ ticket.id }}')"
+                class="rounded-lg text-medium justify-end shadow-lg px-4 py-2 bg-primary-200 text-white text-md font-semibold cursor-pointer duration-300 hover:bg-primary-100"><i
+                    class="fa fa-paper-plane"></i>&nbsp;&nbsp;Reply</a>
+            {% endif %}
+        </div>
+    </div>
+    <footer>
+        <script src="/public/scripts/tailwind.config.js"></script>
+        <script src="/public/scripts/tickets/reply.js"></script>
+        <p class="text-white text-base font-semibold text-center p-5">{{ client.config.SiteName}} ©️ 2022 - 2023</p>
+    </footer>
+</body>
+
+</html>

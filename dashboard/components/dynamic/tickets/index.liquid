@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% render 'partials/header.liquid', client: client, user: user, staff: staff %}
+</head>
+
+<body class="bg-primary-100 font-body text-white">
+    {% render 'partials/navbar.liquid', client: client, user: user, staff: staff %}
+    <div class="w-11/12 md:w-8/12 mx-auto mt-24">
+        <p class="text-4xl font-semibold text-center mb-4">MC Forums Ticketing Support</p>
+        <div class="lg:block lg:mt-0 border-b border-primary-200 mx-auto md:w-5/12 w-8/12 mt-5"></div>
+        <div class="flex mx-auto w-5/12 mt-10 space-between">
+            <a href="/support/ticket" class="rounded-lg text-lg m-5 justify-end shadow-lg px-6 py-3 bg-primary-300 text-white text-md font-semibold cursor-pointer duration-100 hover:bg-primary-400"><i class="fa fa-book-open"></i>&nbsp;&nbsp;Open Support Ticket</a>
+            <a href="{{ client.config.support }}" target="_blank" class="rounded-lg text-lg m-5 justify-end shadow-lg px-6 py-3 bg-primary-300 text-white text-md font-semibold cursor-pointer duration-100 hover:bg-primary-400"><i class="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Join our discord server</a>
+        </div>
+    </div>
+    <footer>
+        <script src="/public/scripts/tailwind.config.js"></script>
+        <p class="text-white text-base font-semibold text-center p-5">{{ client.config.SiteName}} ©️ 2022 - 2023</p>
+    </footer>
+</body>
+
+</html>

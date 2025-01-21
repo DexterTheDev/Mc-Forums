@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body{
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0476D0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0262ac;
+}
+.load {
+  animation: came-out 0.5s ease-in-out;
+}
+.load2 {
+  animation: came-in 0.5s ease-in-out;
+}
+@keyframes came-out {
+  0% {
+    transition: 0.2s;
+    transform: translateX(-200%);
+  }
+  80% {
+    transition: 0.2s;
+    transform: translateX(-20);
+  }
+  90% {
+    transition: 0.2s;
+    transform: translateX(-10);
+  }
+  100% {
+    transition: 0.2s;
+    transform: translateX(0);
+  }
+}
+
+@keyframes came-in {
+  0% {
+    transition: 0.2s;
+    transform: translateX(200%);
+  }
+  80% {
+    transition: 0.2s;
+    transform: translateX(20);
+  }
+  90% {
+    transition: 0.2s;
+    transform: translateX(10);
+  }
+  100% {
+    transition: 0.2s;
+    transform: translateX(0);
+  }
+}
+
+.reports-content{
+  overflow: overlay;
+  overflow: scroll;
+}

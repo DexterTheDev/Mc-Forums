@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% render 'partials/header.liquid', client: client, user: user, staff: staff %}
+</head>
+
+<body class="bg-primary-100 font-body">
+    {% render 'partials/navbar.liquid', client: client, user: user, staff: staff %}
+
+    <div class="md:w-8/12 mx-auto mt-32 justify-end">
+        <a class="rounded-lg shadow-lg px-10 py-4 bg-primary-200 text-white text-md font-semibold cursor-pointer duration-100 hover:bg-primary-300" href="/threads/{{ category }}/{{ type }}/create"><i class="fa fa-plus"></i>&nbsp;Create new thread</a>
+    </div>
+    <div class="flex flex-col mt-5 md:w-8/12 mx-auto">
+       
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8 rounded-lg">
+                <div class="overflow-hidden">
+                    <table class="min-w-full text-center">
+                        <thead class="border-b bg-primary-300">
+                            <tr>
+                                <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                    #
+                                </th>
+                                <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                    Thread Name
+                                </th>
+                                <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                    Author
+                                </th>
+                                <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                    Created
+                                </th>
+                                <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                    Views
+                                </th>
+
+                            </tr>
+                        </thead class="border-b">
+                        <tbody class="bg-primary-500">
+                            {% for thread in threads %}
+                            <tr onclick="location.href='/thread/{{ thread.id }}'" class="cursor-pointer bg-white border-b duration-300 hover:bg-secondary-700">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">{{ thread.index }}</td>
+                                <td class="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap text-left">
+                                    {{ thread.name }}
+                                </td>
+                                <td class="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap text-left">
+                                    {{ thread.author }}
+                                </td>
+                                <td class="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap text-left">
+                                    {{ thread.created }}
+                                </td>
+                                <td class="text-sm text-gray-900 font-bold px-10 py-4 whitespace-nowrap text-left">
+                                    {{ thread.views }}
+                                </td>
+                            </tr class="bg-white border-b">
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <script src="/public/scripts/tailwind.config.js"></script>
+        <p class="text-white text-base font-semibold text-center p-5">{{ client.config.SiteName}} ©️ 2022 - 2023</p>
+    </footer>
+</body>
+
+</html>

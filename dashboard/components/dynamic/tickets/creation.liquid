@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% render 'partials/header.liquid', client: client, user: user, staff: staff %}
+</head>
+
+<body class="bg-primary-100 font-body text-white">
+    {% render 'partials/navbar.liquid', client: client, user: user, staff: staff %}
+    <div class="w-11/12 md:w-8/12 mx-auto mt-32 bg-primary-300 border-2 border-primary-400 px-7 py-4 rounded-lg">
+        <p class="text-4xl font-semibold text-center mb-4">Ticket Creation Form</p>
+        <div class="lg:block lg:mt-0 border-b border-primary-400 mx-auto md:w-5/12 w-8/12 mt-5"></div>
+        <p>Name:</p>
+        <input class="rounded-lg bg-primary-200 px-4 py-2 outline-none w-full mb-4" id="name"
+            placeholder="Ticket name" />
+        <p>Priority:</p>
+        <select id="priority" class="rounded-lg outline-none border-none shadow-lg px-2 py-1 bg-primary-200 mb-4">
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+        </select>
+        <p>Categorys:</p>
+        <select id="category" class="rounded-lg outline-none border-none shadow-lg px-2 py-1 bg-primary-200 mb-4">
+            <option value="general">General Support</option>
+            <option value="account">Account Support</option>
+            <option value="discord">Discord Support</option>
+            <option value="ban">Ban Appeal</option>
+        </select>
+        <p>What do you need help with:</p>
+        <textarea class="rounded-lg bg-primary-200 px-4 py-2 outline-none w-full h-44 mb-5" draggable="false"
+            id="reason" placeholder="Specify what do you need help with providing some pics"></textarea>
+        <a onclick="submitTicket()"
+            class="rounded-lg text-medium justify-end shadow-lg px-6 py-3 bg-primary-200 text-white text-md font-semibold cursor-pointer duration-300 hover:bg-primary-100"><i
+                class="fa fa-book-open"></i>&nbsp;&nbsp;Submit</a>
+        <br /><br />
+    </div>
+    <footer>
+        <script src="/public/scripts/tailwind.config.js"></script>
+        <script src="/public/scripts/tickets/submitTicket.js"></script>
+        <p class="text-white text-base font-semibold text-center p-5">{{ client.config.SiteName}} ©️ 2022 - 2023</p>
+    </footer>
+</body>
+
+</html>

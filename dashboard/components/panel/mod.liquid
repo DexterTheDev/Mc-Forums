@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% render 'partials/header.liquid', client: client, user: user, staff: staff %}
+</head>
+
+<body class="bg-primary-100 font-body text-white">
+    {% render 'partials/navbar.liquid', client: client, user: user, staff: staff %}
+    <div class="mx-auto md:w-8/12 mt-32 md:flex md:flex-wrap">
+        <div>
+            <div class="bg-primary-200 m-2 w-92 h-48 rounded-lg py-5 px-4 shadow-lg">
+                <p class="text-xl text-white font-semibold"><i class="fa fa-hammer"></i>&nbsp;Ban users</p>
+                <input id="userID"
+                    class="rounded-lg mb-4 outline-none border-none shadow-lg w-full mt-4 py-4 px-5 font-semibold text-white bg-primary-100"
+                    type="number" placeholder="User Discord ID">
+                <a class="rounded-lg text-sm justify-end shadow-lg px-6 py-3 bg-primary-100 text-white text-md font-semibold cursor-pointer duration-100 hover:bg-primary-300"
+                    onclick="userAction()"><i class="fa fa-flag"></i>&nbsp;&nbsp;Submit to Ban/Unban</a>
+            </div>
+        </div>
+        <div class="bg-primary-200 m-2 lg:w-3/12 h-full rounded-lg py-5 px-4 shadow-lg">
+            <p class="text-xl text-white font-semibold mb-5"><i class="fa fa-flag"></i>&nbsp;Latest Threads</p>
+            {% for thread in threads %}
+            <div class="bg-primary-100 duration-300 rounded-lg mb-2 py-3 px-4 cursor-pointer hover:bg-primary-300"
+                onclick="location.href='/thread/{{ thread.id }}'">
+                <p>{{ thread.name }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="lg:block lg:mt-8 border-b border-primary-200 mx-auto md:w-5/12 w-8/12 mt-5"></div>
+    <div class="w-8/12 mx-auto">
+        <p class="text-white text-2xl font-semibold mt-3 mb-3"><i class="fa fa-tags"></i>&nbsp;&nbsp;Tickets
+        </p>
+        <div class="bg-primary-200 mt-5 rounded-lg py-5 px-4 shadow-lg">
+            {% for ticket in tickets %}
+            <div class="bg-primary-100 duration-300 rounded-lg mb-2 flex py-5 px-5">
+                <div>
+                    <div class="flex">
+                        <p class="text-xl mb-2 font-semibold">{{ ticket.name | capitalize }}</p>
+                        <div class="justify-end w-32 ml-3">
+                            <a class="text-md font-bold cursor-pointer duration-300 hover:text-gray-400"
+                                onclick="deleteTicket('{{ ticket.id }}')" title="Delete ticket"><i
+                                    class="fa fa-flag"></i></a>
+                            <a class="text-md font-bold cursor-pointer duration-300 hover:text-gray-400"
+                                onclick="lockTicket('{{ ticket.id }}')"
+                                title="{% if ticket.closed %} Unlock ticket {% else %} Lock ticket {% endif %}"><i
+                                    class="fa-solid fa-computer-mouse"></i></a>
+                            <a class="text-md font-bold cursor-pointer duration-300 hover:text-gray-400" target="_blank"
+                                href="/ticket/{{ ticket.id }}" title="Visit ticket"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <b class="font-bold text-red-600 py-1 px-2 rounded-lg shadow-sm bg-primary-200 text-base">{{
+                        ticket.priority | capitalize }}</b>
+                    <b class="text-base font-bold py-1 px-2 rounded-lg shadow-sm bg-primary-200">{{ ticket.category
+                        | capitalize }}</b>
+                    <b class="text-base font-bold py-1 px-2 rounded-lg shadow-sm bg-primary-200">{{
+                        ticket.authorInfo.tag }}</b>
+                    <p class="mr-4 break-all mt-3">{{ ticket.content }}</p>
+                </div>
+            </div>
+            {% else %}
+            <p class="max-w-92 truncate text-center">There are not any tickets</p>
+            {% endfor %}
+        </div>
+    </div>
+    <footer>
+        <script src="/public/scripts/tailwind.config.js"></script>
+        <script src="/public/scripts/panel/index.js"></script>
+        <p class="text-white text-base font-semibold text-center p-5">{{ client.config.SiteName }} ©️ 2022 - 2023</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% render 'partials/header.liquid', client: client, user: user, staff: staff %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.5.1/dist/full.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body class="bg-primary-100 font-body text-white">
+    {% render 'partials/navbar.liquid', client: client, user: user, staff: staff %}
+
+    <div class="md:w-8/12 mx-auto mt-32">
+        <h1 class="text-white text-3xl"><i class="fa fa-flag"></i>&nbsp;Our thread topics</h1>
+    </div>
+    <div class="mx-auto w-8/12 mt-12">
+        {% for category in categories %}
+
+        <details class="shadow rounded group mb-4" open>
+            <summary class="bg-primary-200 list-none flex flex-wrap items-center cursor-pointer
+          focus-visible:outline-none focus-visible:ring focus-visible:ring-pink-500
+          rounded group-open:rounded-b-none group-open:z-[1] relative
+          ">
+                <h3 class="flex flex-1 p-4 font-semibold">{{ category.categoryName | uppercase }}</h3>
+                <div class="bg-primary-200 flex w-10 items-center justify-center">
+                    <div class="border-8 border-transparent border-l-primary-600 ml-2
+              group-open:rotate-90 transition-transform origin-left
+              "></div>
+                </div>
+            </summary>
+            <div class="block flex flex-col mx-auto">
+                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="overflow-hidden rounded-b-lg shadow-lg">
+                            <table class="min-w-full text-center">
+                                <thead class="border-b-2 border-primary-100 bg-primary-200">
+                                    <tr>
+                                        <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                            #
+                                        </th>
+                                        <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                            Thread Name
+                                        </th>
+                                        <th scope="col" class="text-sm font-bold text-left text-white px-6 py-4">
+                                            Threads
+                                        </th>
+
+                                    </tr>
+                                </thead class="border-b">
+                                <div class="bg-primary-200">
+                                    <tbody class="bg-primary-500">
+                                        {% for thread in category.threads %}
+                                        <tr onclick="location.href='/threads/{{ category.categoryName | downcase }}/{{ thread.name | downcase }}'"
+                                            class="cursor-pointer bg-primary-300 border-b border-primary-200 duration-300 hover:bg-primary-400">
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100 text-left">
+                                                {{ thread.index }}</td>
+                                            <td
+                                                class="text-sm text-gray-100 font-bold px-6 py-4 whitespace-nowrap text-left">
+                                                {{ thread.icon }}&nbsp;&nbsp;{{ thread.name }}
+                                            </td>
+                                            <td
+                                                class="text-sm text-gray-100 font-bold px-11 py-4 whitespace-nowrap text-left">
+                                                {{ thread.count }}
+                                            </td>
+                                        </tr class="bg-white border-b">
+                                        {% endfor %}
+                                    </tbody>
+                                </div>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
+        {% endfor %}
+    </div>
+    <footer>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+        <script src="/public/scripts/tailwind.config.js"></script>
+        <p class="text-white text-base font-semibold text-center p-5">{{ client.config.SiteName}} ©️ 2022 - 2023</p>
+    </footer>
+</body>
+
+</html>

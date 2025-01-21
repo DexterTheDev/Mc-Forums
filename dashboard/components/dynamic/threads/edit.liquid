@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% render 'partials/header.liquid', client: client, user: user, staff: staff %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+</head>
+
+<body class="bg-primary-100 font-body">
+    {% render 'partials/navbar.liquid', client: client, user: user, staff: staff %}
+    <div class="md:w-8/12 mx-auto mt-32">
+        <h1 class="text-white text-3xl"><i class="fa fa-pencil"></i>&nbsp;Modify your thread</h1>
+        <div class="mb-20 mt-7 bg-primary-300 py-7 px-7 rounded-lg shadow-lg">
+            <input id="threadName"
+                class="px-5 py-3 bg-primary-200 mb-3 shadow-lg rounded-lg outline-none text-white duration-300 border-primary-200"
+                placeholder="Thread Name." value="{{ thread.name }}" />
+            <textarea id="markdown-editor" class="border-none outline-none" >{{ thread.content }}</textarea>
+            <div class="flex">
+                <input onclick="view()" id="check" type="checkbox" class="w-5 h-5" />
+                <p class="pl-2 text-md text-white font-semibold">Do you agree to our terms of service along with privacy
+                    policy with chat guidelines.</p>
+            </div>
+            <div class="flex mb-8">
+                <input id="repliesCheck" type="checkbox" class="w-5 h-5"  {% if thread.closed %} checked {% else %} unchecked {% endif %}/>
+                <p class="pl-2 text-md text-white font-semibold">Do you want to close replies to this thread?</p>
+            </div>
+            <a class="hidden rounded-lg shadow-lg px-14 py-4 bg-primary-200 text-white text-md font-semibold cursor-pointer duration-100 hover:bg-primary-100"
+                id="submit" onclick="submitThread()">Modify Edits</a>
+        </div>
+    </div>
+    <script>
+        const easyMDE = new EasyMDE({
+            element: document.getElementById('markdown-editor')
+        });
+        const view = () => {
+            if (!document.getElementById("check").checked) document.getElementById("submit").setAttribute("class", "hidden rounded-lg shadow-lg px-14 py-4 bg-primary-200 text-white text-md font-semibold cursor-pointer duration-100 hover:bg-primary-100")
+            else document.getElementById("submit").setAttribute("class", "rounded-lg shadow-lg px-14 py-4 bg-primary-200 text-white text-md font-semibold cursor-pointer duration-100 hover:bg-primary-100")
+        }
+    </script>
+    <footer>
+        <script src="/public/scripts/threads/edit.js"></script>
+        {% render 'partials/footer.liquid', client: client, user: user %}
+    </footer>
+</body>
+
+</html>

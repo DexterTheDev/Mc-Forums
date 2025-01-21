@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% render 'partials/header.liquid', client: client, user: user, staff: staff %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+</head>
+
+<body class="bg-primary-100 font-body">
+    {% render 'partials/navbar.liquid', client: client, user: user, staff: staff %}
+    <div class="md:w-8/12 mx-auto mt-32">
+        <h1 class="text-white text-3xl"><i class="fa fa-flag"></i>&nbsp;Report users</h1>
+        <div class="mb-20 mt-7 bg-primary-200 py-7 px-7 rounded-lg shadow-lg">
+            <textarea id="content"
+                class="rounded-lg outline-none border-none shadow-lg h-32 w-full mt-7 py-4 px-5 font-semibold text-white bg-primary-100"
+                placeholder="This user threatened me, and I have the following evidence
+-
+-
+-
+"></textarea>
+            <div class="mx-auto flex">
+                <a class="rounded-lg justify-end shadow-lg px-8 py-3 bg-primary-100 text-white text-md font-semibold cursor-pointer duration-100 hover:bg-primary-300"
+                    onclick="submitReport()"><i class="fa fa-flag"></i>&nbsp;Submit Report</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <script src="/public/scripts/profile/report.js"></script>
+        <script src="/public/scripts/tailwind.config.js"></script>
+        <p class="text-white text-base font-semibold text-center p-5">{{ client.config.SiteName}} ©️ 2022 - 2023</p>
+    </footer>
+</body>
+
+</html>
